@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[top=10mm, bottom=45mm, left=10mm, right=10mm]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{answers}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathrsfs}
+\usepackage{algorithmic}
+\usepackage{stmaryrd}
+\usepackage[ruled,linesnumbered,vlined]{algorithm2e}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines, 
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{\textbf{EE 456}}   
+\newcommand\name{Aishwarye Omer}     
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\name\\\course{}}
+\chead{\textbf{\Large Homework - 06}}
+\rhead{\today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\newlength\myindent
+\setlength\myindent{2em}
+\newcommand\bindent{%
+  \begingroup
+  \setlength{\itemindent}{\myindent}
+  \addtolength{\algorithmicindent}{\myindent}
+}
+\newcommand\eindent{\endgroup}
+
+\newenvironment{solution}[1][Solution]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+
+\begin{document}
+
+\textbf{Question: } \text{Design and train an ADALINE network to implement a 2-input OR gate using error based method}
+\BlankLine	
+\textbf{Solution :} The network will work on Bipolar Input, the function and the parameters are as follows:
+\BlankLine
+\begin{itemize}
+	\item $ f(0) = 1 $ and $ \alpha =  0.4 $
+	\item $ Y_{in} = \displaystyle \sum_{1}^{n} W_i \times X_i + b$
+	\item $ W_ = \begin{bmatrix}
+	\phantom{-}1 \\ -0.5 \\ \phantom{-}0.25 \ 
+	\end{bmatrix}$ initially, where $w_1 = 1, w_2 = -0.5$ and $b = 0.25$
+	
+	\item The truth table for the 2-input OR gate is as follows:
+
+		\[\arraycolsep=1cm\def\arraystretch{2.2}
+		\begin{array}{|c|c c|c|}
+			X_i & 1 & 2 & (\lor) T_i\\
+			\hline 
+			1 & -1 & -1 & -1\\
+			2 & -1 & \phantom{-}1 &  \phantom{-}1\\ 
+			3 & \phantom{-}1 & -1 & \phantom{-} 1\\
+			4 & \phantom{-}1 &  \phantom{-}1 &  \phantom{-}1\\
+			\hline
+		\end{array}\]
+	
+	\item Each $X_i$ and $T_i$ is a column vector.
+	
+	\item Error is calculated as: $ E = 0.5 \ * \ \displaystyle \sum_{i=1}^{n} (T_i - Y_i)^{2} $. Error should decrease after every cycle of input is applied.
+	
+	\item $W_{new} = W_{old}\ +\ \alpha \times X_i \times (T_i - Y_{in})$  
+	
+	\item $b_{new} = b_{old}\ +\ \alpha \times (T_i - Y_{in})$  
+	
+\end{itemize}
+\BlankLine
+\BlankLine
+\textbf{Calculations: }
+\begin{itemize}
+	\item First calculate error $E$.\BlankLine
+	
+		\begin{enumerate}
+			
+			\item $Y_{1_{in}} $ is as follows: \BlankLine
+			$y_{1_{in}} =\  f (\ w_1 * X_{11} \ + \ w_2 * X_{12} \ + \ b \ )$ \BlankLine
+			$y_{1_{in}} =\  f (\ 1 * -1\ + \ -0.5 * -1 \ + \ 0.25 ) \ = \ f (-0.25) \ = -1 = T_1$ $\rightarrow$ \textbf{ok}\BlankLine\BlankLine
+			
+			\item $Y_{2_{in}} $ is as follows: \BlankLine
+			$y_{2_{in}} =\  f (\ w_1 * X_{21} \ + \ w_2 * X_{22} \ + \ b \ )$ \BlankLine
+			$y_{2_{in}} =\  f (\ 1 * -1\ + \ -0.5 * 1 \ + \ 0.25 ) \ = \ f (-1.25) \ = \ -1 \neq T_2$ $\rightarrow$ \text{not ok}\BlankLine\BlankLine
+			
+			\item $Y_{3_{in}} $ is as follows: \BlankLine
+			$y_{3_{in}} =\  f (\ w_1 * X_{31} \ + \ w_2 * X_{32} \ + \ b \ )$ \BlankLine
+			$y_{3_{in}} =\  f (\ 1 * 1\ + \ -0.5 * -1 \ + \ 0.25 ) \ = \ f (1.75) \ = \ 1 = T_3$ $\rightarrow$ \textbf{ok}\BlankLine\BlankLine
+			
+			\item $Y_{4_{in}} $ is as follows: \BlankLine
+			$y_{4_{in}} =\  f (\ w_1 * X_{41} \ + \ w_2 * X_{42} \ + \ b \ )$ \BlankLine
+			$y_{4_{in}} =\  f (\ 1 * 1\ + \ -0.5 * 1 \ + \ 0.25 ) \ = \ f (0.75) \ = \ 1 = T_4$ $\rightarrow$ \textbf{ok}\BlankLine\BlankLine
+			
+		\end{enumerate}
+		
+	\item Therefore error $ E $ is : \BlankLine\BlankLine
+		
+		$ E = 0.5 \ * \ \displaystyle \sum_{i=1}^{n} (T_i - Y_i)^{2} $. \BlankLine\BlankLine
+		
+		$ E = 0.5 \ * \ [\ (T_1 - Y_1 )^{2} \ + \ (T_2 - Y_2 )^{2} \ + \ (T_3 - Y_3 )^{2} \ + \ (T_4 - Y_4 )^{2} \ ]$\BlankLine\BlankLine
+		
+		$ E = 0.5 \ * \ [\ (-1 - (-1))^{2} \ + \ (1 - (-1))^{2} \ + \ (1 - 1)^{2} \ + \ (1 - 1)^{2} )\ ]$\BlankLine\BlankLine
+		
+		$ E = 0.5 \ * \ 4 \ = \ 2$
+	
+	\item We start from $X_2$ since $Y_1$ is ok according to current weight and bias. Since function on $Y_{2_{in}}$ is not equal to $T_2$, we need to train the network
+	
+	\item Let's train:
+	{
+		\begin{enumerate}
+			
+			\item $w_{1\ new} = w_{1\ old}\ +\ \alpha \times X_{21} \times (T_2 - Y_{2_{in}}) $ $=$ $1\ +\ 0.4 \times -1 \times 2.25$ $=\ 0.1$
+			\item $w_{2\ new} = w_{2\ old}\ +\ \alpha \times X_{22} \times (T_2 - Y_{2_{in}}) $ $=$ $-0.5\ +\ 0.4 \times -1 \times 2.25$ $=\ 0.4$
+			\item $b_{new} = b_{old} \ + \ \alpha \times (T_2 - Y_{2_{in}})$ $=\ 0.25 \ + \ 0.5 \times 2.25 \ = \ 1.15$
+			\BlankLine
+			\item Therefore, $ W = \begin{bmatrix}
+				\phantom{-}0.1\ \\ 	
+				\phantom{-}0.4\ \\ 	
+				\phantom{-}1.15\ \\ 
+			\end{bmatrix}$
+		\end{enumerate}
+	}
+	\BlankLine
+	\item Apply $X_3$, \  $y_{3_{in}} = f(\ 0.1 - 0.4 + 1.15\ ) \ = \ f(0.85) \ = \ 1 $ $\rightarrow$ \textbf{ok}
+	
+	\item Apply $X_4$, \  $y_{4_{in}}= f(\ 0.1 + 0.4 + 1.15\ ) \ = \ f(1.65) \ = \ 1 $ $\rightarrow$ \textbf{ok}
+	
+	\item Again start from $X_1$. Apply $X_1$, \  $y_{1_{in}} = f(\ -0.1 - 0.4 + 1.15\ ) \ = \ f(0.65) \ = \ 1 $ $\rightarrow$ \text{not ok}.
+	
+	\item Let's train:
+	{
+		\begin{enumerate}
+			
+			\item $w_{1\ new} = w_{1\ old}\ +\ \alpha \times X_{11} \times (T_1 - Y_{1_{in}}) $ $=$ $0.1\ +\ 0.4 \times -1 \times -1.65$ $=\ 0.76$
+			\item $w_{2\ new} = w_{2\ old}\ +\ \alpha \times X_{12} \times (T_1 - Y_{1_{in}}) $ $=$ $0.4\ +\ 0.4 \times -1 \times -1.65$ $=\ 1.06$
+			\item $b_{new} = b_{old} \ + \ \alpha \times (T_1 - Y_{1_{in}})$ $=\ 1.15 \ + \ 0.4 \times -1.65 \ = \ 0.49$
+			\BlankLine
+			\item Therefore , $ W = \begin{bmatrix}
+				\phantom{-}0.76\ \\ 	
+				\phantom{-}1.06\ \\ 	
+				\phantom{-}0.49\ \\ 
+			\end{bmatrix}$
+		\end{enumerate}
+	}
+	
+	\item Apply $X_2$, \ $y_{2_{in}} = f(\ -0.76 + 1.06 + 0.49\ ) \ = \ f(0.79) \ = \ 1 $ $\rightarrow$ \textbf{ok}
+	
+	\item Apply $X_3$, $y_{3_{in}} = f(\ 0.76 - 1.06 + 0.49\ ) \ = \ f(0.19) \ = \ 1 $ $\rightarrow$ \textbf{ok}
+	
+	\item Apply $X_4$, $y_{4_{in}} = f(\ 0.76 + 1.06 + 0.49\ ) \ = \ f(2.31) \ = \ 1 $ $\rightarrow$ \textbf{ok}
+	
+	\item Finally apply $X_1$, $y_{1_{in}} = f(\ -0.76 - 1.06 + 0.49\ ) \ = \ f(-1.33) \ = \ -1 $ $\rightarrow$ \textbf{ok}
+	
+	
+	
+\end{itemize}
+
+Therefore the network is set for 2-input OR gate and we do not need to train it further.
+\end{document}

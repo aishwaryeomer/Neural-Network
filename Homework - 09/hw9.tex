@@ -1,0 +1,167 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[top=10mm, bottom=45mm, left=10mm, right=10mm]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{answers}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathrsfs}
+\usepackage{algorithmic}
+\usepackage{stmaryrd}
+\usepackage[ruled,linesnumbered,vlined]{algorithm2e}
+\usepackage{tikz}
+ \usepackage{fancyvrb}
+\usetikzlibrary{automata, positioning}
+\usepackage{minted}
+
+
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines, 
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{\textbf{EE 456}}   
+\newcommand\name{Aishwarye Omer}     
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\name\\\course{}}
+\chead{\textbf{\Large Homework - 09}}
+\rhead{\today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\newlength\myindent
+\setlength\myindent{2em}
+\newcommand\bindent{%
+  \begingroup
+  \setlength{\itemindent}{\myindent}
+  \addtolength{\algorithmicindent}{\myindent}
+}
+\newcommand\eindent{\endgroup}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+\newenvironment{solution}[1][Solution]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+
+\begin{document}
+
+\textbf{Question: Linear Algebra}
+
+\BlankLine
+\BlankLine
+
+\textbf{Solution:} 
+\BlankLine
+\begin{enumerate}
+	\item Given the matrices, 
+	$ A \ = \ \begin{bmatrix}
+		-2  && 4 && -1 \ 
+	\end{bmatrix}$, \ $ B  \ = \ \begin{bmatrix} \phantom{-}1 \ \\ \phantom{-}0 \ \\ -3 \ \end{bmatrix}$ 
+	
+	\begin{itemize}
+		\item $A \times B \ = \ -2 \times 1 \ + \ 4 \times 0 \ + \ -1 \times -3 \ = \ \begin{bmatrix}
+			\ 1 \
+		\end{bmatrix}$
+		\BlankLine
+		\item $B \times A \ = \ \begin{bmatrix}
+			-2 && \phantom{-}4 && -1 \ \\
+			\phantom{-}0 && \phantom{-}0 && \phantom{-}0  \ \\
+			\phantom{-}6 && -12 && \phantom{-}3 \ 
+		\end{bmatrix}$
+		
+	\end{itemize}
+
+	\item Given the matrices $ C \ = \ \begin{bmatrix}
+		\phantom{-}3 && \phantom{-}5 \ \\
+		-2 && -4 \
+	\end{bmatrix} $,  \ $ D  \ = \ \begin{bmatrix} \phantom{-}1 && \phantom{-}0 \ \\ -1 && \phantom{-}6 \  \end{bmatrix}$ 
+
+	\begin{itemize}
+		\item $ | \ C \  | \ = \ -4 \times 3 \ - \ 5 \times (-2) \ = \ -2 $
+		
+		\BlankLine
+		\BlankLine
+		
+		\item $ C \times D  \ = \ \begin{bmatrix}
+			-2 && \phantom{-}30 \ \\
+			\phantom{-}2 && -24 \ 
+		\end{bmatrix}$
+	
+		\BlankLine\BlankLine
+		
+		\item $ D \times C  \ = \ \begin{bmatrix}
+			\phantom{-}3 && \phantom{-}5 \ \\
+			-15 && -29 \ 
+		\end{bmatrix}$
+		
+		\BlankLine\BlankLine
+		
+		\item $ D^{T}  \ = \ \begin{bmatrix} \phantom{-}1 && -1 \\ \phantom{-}0  && \phantom{-}6 \  \end{bmatrix}$ 
+		
+		\BlankLine\BlankLine
+		
+		\item $ D^{-1} \ = \ \begin{bmatrix} \phantom{-}1 && \phantom{-}0 \ \\ \phantom{-}0.1666666 && \phantom{-}0.1666666 \  \end{bmatrix}$
+		
+		\BlankLine\BlankLine
+		
+		\item $ D \times D^{-1} \ = \ \begin{bmatrix} \phantom{-}1 && \phantom{-}0 \ \\ -1 && \phantom{-}6 \  \end{bmatrix} \times \begin{bmatrix} \phantom{-}1 && \phantom{-}0 \ \\ \phantom{-}0.1666666 && \phantom{-}0.1666666 \  \end{bmatrix} \ = \ \begin{bmatrix} \phantom{-}1 && \phantom{-}0 \ \\ \phantom{-}0 && \phantom{-}1 \  \end{bmatrix} \ = \ I_2$ 
+		
+	\end{itemize}
+		
+	
+\end{enumerate}
+
+
+
+\end{document}

@@ -1,0 +1,215 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[top=10mm, bottom=40mm, left=10mm, right=10mm]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{answers}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathrsfs}
+\usepackage{algorithmic}
+\usepackage{stmaryrd}
+\usepackage[ruled,linesnumbered,vlined]{algorithm2e}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines, 
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{\textbf{EE 456}}   
+\newcommand\name{Aishwarye Omer}     
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\name\\\course{}}
+\chead{\textbf{\Large Homework - 11}}
+\rhead{\today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\newlength\myindent
+\setlength\myindent{2em}
+\newcommand\bindent{%
+  \begingroup
+  \setlength{\itemindent}{\myindent}
+  \addtolength{\algorithmicindent}{\myindent}
+}
+\newcommand\eindent{\endgroup}
+
+\newenvironment{solution}[1][Solution]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+
+\begin{document}
+
+\textbf{Question: } Design a two-input X-NOR gate around RBF centers at [1 0] and [0 1], as was done in class. Be sure to include the output cell and the weights and bias inputs.
+\BlankLine	
+\textbf{Solution :} The network will work on Unipolar Input, the function and the parameters are as follows:
+\BlankLine
+\begin{itemize}
+	\item $ Y_{in} = \displaystyle \sum_{1}^{n} W_i \times \phi_i + b$ for the final output after hidden layer
+	\item $\phi_i \ = \ e^{-\parallel x_i - t_i \parallel ^ 2}$
+	\item $t_1 \ = \ [0 \ 1]$ and $t_2 \ = \ [1\ 0]$
+	
+	\item The truth table for the 2-input X-NOR gate is as follows:
+
+		\[\arraycolsep=1cm\def\arraystretch{2.2}
+		\begin{array}{|c|c c|c|}
+			X_i & 1 & 2 &  A_i\\
+			\hline 
+			1 & 0 & 0 & 1\\
+			2 & 0 & 1 &  0\\ 
+			3 & 1 & 0 & 0\\
+			4 & 1 & 1 &  1\\
+			\hline
+		\end{array}\]
+	
+	\item Each $X_i$ and $A_i$  is a column vector where $A$ is target.
+
+\end{itemize}
+\BlankLine
+\BlankLine
+\textbf{Calculations: }
+\begin{itemize}
+	\item For $X_1 = \begin{bmatrix}
+		0 \\ 0
+	\end{bmatrix}$
+	
+	\begin{enumerate}
+		\item $\phi_{1} \ = \ e^{-\parallel x_1- t_1 \parallel ^ 2}  \ = \ e^{-1} \ = \ 0.368 $
+		\item $\phi_{2} \ = \ e^{-\parallel x_1- t_2 \parallel ^ 2}  \ = \ e^{-1} \ = \ 0.368 $
+		
+		\item Therefore, $ y_1 = w_1 \times \phi_{1} \ + \ w_1 \times \phi_{1} + b$
+	\end{enumerate}
+
+	\item For $X_2 = \begin{bmatrix}
+		0 \\ 1
+	\end{bmatrix}$
+	
+	\begin{enumerate}
+		\item $\phi_{1} \ = \ e^{-\parallel x_2- t_1 \parallel ^ 2}  \ = \ e^{0} \ = \ 1 $
+		\item $\phi_{2} \ = \ e^{-\parallel x_2- t_2 \parallel ^ 2}  \ = \ e^{-2} \ = \ 0.135 $
+		
+		\item Therefore, $ y_2 = w_1 \times \phi_{1} \ + \ w_1 \times \phi_{1} + b$
+	\end{enumerate}
+
+	\item For $X_3 = \begin{bmatrix}
+		1 \\ 0
+	\end{bmatrix}$
+	
+	\begin{enumerate}
+		\item $\phi_{1} \ = \ e^{-\parallel x_3- t_1 \parallel ^ 2}  \ = \ e^{-2} \ = \ 0.135 $
+		\item $\phi_{2} \ = \ e^{-\parallel x_3- t_2 \parallel ^ 2}  \ = \ e^{0} \ = \ 1 $
+		
+		\item Therefore, $ y_1 = w_1 \times \phi_{1} \ + \ w_1 \times \phi_{1} + b$
+	\end{enumerate}
+
+	\item For $X_4 = \begin{bmatrix}
+		1 \\ 1
+	\end{bmatrix}$
+	
+	\begin{enumerate}
+		\item $\phi_{1} \ = \ e^{-\parallel x_4- t_1 \parallel ^ 2}  \ = \ e^{-1} \ = \ 0.368 $
+		\item $\phi_{2} \ = \ e^{-\parallel x_4- t_2 \parallel ^ 2}  \ = \ e^{-1} \ = \ 0.368 $
+		
+		\item Therefore, $ y_1 = w_1 \times \phi_{1} \ + \ w_1 \times \phi_{1} + b$
+	\end{enumerate}
+	
+	\item Therefore the matrix for $\phi_{1}$ and $\phi_{2}$ along with inputs and target looks like:
+	
+		\[\arraycolsep=1cm\def\arraystretch{2.2}
+	\begin{array}{|c|c c|c c|c|}
+		X_i & 1 & 2 & \phi_1 & \phi_2 &  A_i\\
+		\hline 
+		1 & 0 & 0 & 0.368 & 0.368 & 1\\
+		2 & 0 & 1 & 1 & 0.135 &  0\\ 
+		3 & 1 & 0 & 0.135 & 1 & 0\\
+		4 & 1 & 1 & 0.368 & 0.368 & 1\\
+		\hline
+	\end{array}\]
+	
+	\item According to our calculation, one set of possible weights and bias we get is 	\\ \\ $ W_ = \begin{bmatrix}
+		-2.4 \\ -2.4 \\ \phantom{-}0.5 \
+	\end{bmatrix}$ initially, where $w_1 = -2.4, w_2 = -2.4$ and $b = 0.5$
+	
+	\item Let the threshold for the output cell be $-2.0$ i.e. $y = 1 $ if $f(x) \geq 2.0$ and $0$ otherwise.
+	
+	\item We test the output for each input including weights and bias:
+	
+	\begin{enumerate}
+		\item Apply $X_1 = \begin{bmatrix}
+			0 \\ 0
+		\end{bmatrix}$ 
+	
+		\begin{itemize}[label=$\rightarrow$]
+			\item $f(y_{in}) \ = \ w_1 \times \phi_{11} \ + \ w_2 \times \phi_{12}  \ + \ b $ 
+			\item $ f(y_{in}) \ = \ -2.4 \times 0.368 + (-2.4) \times 0.368 \ + \ 0.5 \ = \ f(-1.2664) \ = \ 1 $  and target = $1$ $\rightarrow$  \textbf{ok}
+		
+		\end{itemize}
+		
+		\BlankLine\BlankLine\BlankLine\BlankLine\BlankLine
+		\item Apply $X_2 = \begin{bmatrix}
+			0 \\ 1
+		\end{bmatrix}$ 
+		
+		\begin{itemize}[label=$\rightarrow$]
+			\item $f(y_{in}) \ = \ w_1 \times \phi_{21} \ + \ w_2 \times \phi_{22}  \ + \ b $ 
+			\item $ f(y_{in}) \ = \ -2.4 \times 1 + (-2.4) \times 0.135 \ + \ 0 .5\ = \ f(-2.224) \ = \ 0$  and target = $0$ $\rightarrow$  \textbf{ok}
+			
+		\end{itemize}
+	
+		\item Apply $X_3 = \begin{bmatrix}
+			1 \\ 0
+		\end{bmatrix}$ 
+		
+		\begin{itemize}[label=$\rightarrow$]
+			\item $f(y_{in}) \ = \ w_1 \times \phi_{31} \ + \ w_2 \times \phi_{32}  \ + \ b $ 
+			\item $ f(y_{in}) \ = \ -2.4 \times 0.135 + (-2.4) \times 1 \ + \ 0.5 \ = \ f(-2.224) \ = \ 0$  and target = $0$ $\rightarrow$  \textbf{ok}
+			
+		\end{itemize}
+	
+		\item Apply $X_4 = \begin{bmatrix}
+			1 \\ 1
+		\end{bmatrix}$ 
+		
+		\begin{itemize}[label=$\rightarrow$]
+			\item $f(y_{in}) \ = \ w_1 \times \phi_{41} \ + \ w_2 \times \phi_{42}  \ + \ b $ 
+			\item $ f(y_{in}) \ = \ -2.4 \times 0.368 + (-2.4) \times 0.368 \ + \ 0.5 \ = \ f(-1.2664) \ = \ 1$  and target = $1$ $\rightarrow$  \textbf{ok}
+			
+		\end{itemize}
+	
+		\item $w_2/w_1 \ = \ 1$
+		\item $b/w1 \ = -0.2083$
+		
+		\item Equation or decision boundary is $ y \ = \ w_1 \times x_1 \ + \ w_2 \times x_2 \ + \ b \ = \ -2.4 \times x_1 \ -2.4 \times x_2 \ + \ 0.5 $
+		
+	\end{enumerate}
+	
+\end{itemize}
+
+Therefore the network is set for 2-input X-NOR gate.
+\end{document}

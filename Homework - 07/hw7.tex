@@ -1,0 +1,357 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[top=10mm, bottom=40mm, left=10mm, right=10mm]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{answers}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathrsfs}
+\usepackage{algorithmic}
+\usepackage{stmaryrd}
+\usepackage[ruled,linesnumbered,vlined]{algorithm2e}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines, 
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{\textbf{EE 456}}   
+\newcommand\name{Aishwarye Omer}     
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\name\\\course{}}
+\chead{\textbf{\Large Homework - 07}}
+\rhead{\today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\newlength\myindent
+\setlength\myindent{2em}
+\newcommand\bindent{%
+  \begingroup
+  \setlength{\itemindent}{\myindent}
+  \addtolength{\algorithmicindent}{\myindent}
+}
+\newcommand\eindent{\endgroup}
+
+\newenvironment{solution}[1][Solution]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+
+\begin{document}
+
+\textbf{Question: } \text{Design and train an MADALINE network to implement a 2-input XOR gate}
+\BlankLine	
+\textbf{Solution :} The network will work on Bipolar Input, the function and the parameters are as follows:
+\BlankLine
+\begin{itemize}
+	\item $ f(0) = 1 $ and $ \alpha =  0.1 $
+	\item $ Y_{in} = \displaystyle \sum_{1}^{n} V_i \times Z_i + b_3$
+	\item Initially, $w_{11} = 0.3, \ w_{12} = -0.1, \ w_{21} = 0.2,\  w_{22} = 0.4$  
+	\item $b_1 = 0.1,\ b_2 = -0.2, \ b_3 = 0.5$.
+	\item $v_1 = 0.4, \ v_2 = 0.4$
+	
+	\item The truth table for the 2-input XOR gate is as follows:
+
+		\[\arraycolsep=1cm\def\arraystretch{2.2}
+		\begin{array}{|c|c c|c|}
+			X_i & 1 & 2 & (\oplus) T_i\\
+			\hline 
+			1 & -1 & -1 & -1\\
+			2 & -1 & \phantom{-}1 &  \phantom{-}1\\ 
+			3 & \phantom{-}1 & -1 & \phantom{-} 1\\
+			4 & \phantom{-}1 &  \phantom{-}1 & -1\\
+			\hline
+		\end{array}\]
+	
+	\item Each $X_i$ and $T_i$ is a column vector.
+	
+	\item Error is calculated as: $ E = 0.5 \ * \ \displaystyle \sum_{i=1}^{n} (T_i - Y_i)^{2} $. Error should decrease after every cycle of input is applied.
+	
+	\item $W_{11_{new}} = W_{11_{old}}\ +\ \alpha \times X_i \times (T_i - Y_i)$  
+	\item $W_{12_{new}} = W_{12_{old}}\ +\ \alpha \times X_i \times (T_i - Y_i)$  
+	\item $W_{21_{new}} = W_{21_{old}}\ +\ \alpha \times X_i \times (T_i - Y_{i})$  
+	\item $W_{22_{new}} = W_{22_{old}}\ +\ \alpha \times X_i \times (T_i - Y_{i})$  
+	\item $b_{i\ new} = b_{i \ old}\ +\ \alpha \times (T_i - Y_{i})$  
+	
+	\item $z_1 = f(\ w_{11} * X_i + w_{21} * X_i + b_1\ )$
+	\item $z_2 = f(\ w_{12} * X_i + w_{22} * X_i + b_2\ )$
+
+	\item $y = f(\ v_1 * z_1 + v_2 * z_2 + b_3\ )$
+		
+\end{itemize}
+\BlankLine
+\BlankLine
+\textbf{Calculations: (next three iterations after the first training done in class i.e first time when weights and bias were updated)}
+\begin{itemize}
+	
+	\item Apply $X_1 = \begin{bmatrix}
+		-1\ \\ 	
+		-1\ \\ 	
+	\end{bmatrix}$, \  $T_1 = -1$
+
+		{	
+			\begin{enumerate}
+				\item $z_1 \ = \ f(\ -0.1  +  0 - 0.1 \ ) \ = \ f(-0.2) \ = \ -1$
+				\item $z_2 \ = \ f(\ 0.3 -  0.2 - 0.4 \ ) \ = \ f(-0.3) \ = \ -1$
+				\item $y_1 \ = \ f (\ -0.4 - 0.4 + 0.3 \ )\ = \ f(-0.5)  \ = \ -1$ $\rightarrow$ \textbf{ok}
+				\item $E \ = \ 0$
+			\end{enumerate}
+		
+		}
+	
+	\item Apply $X_2 = \begin{bmatrix}
+		-1\ \\ 	
+		\phantom{-}1\ \\ 	
+	\end{bmatrix}$, \  $T_2 = 1$
+
+		{	
+			\begin{enumerate}
+				\item $z_1 \ = \ f(\ -0.1  +  0 - 0.1 \ ) \ = \ f(-0.2) \ = \ -1$
+				\item $z_2 \ = \ f(\ 0.3 + 0.2 - 0.4 \ ) \ = \ f(0.1) \ = \ 1$
+				\item $y_2 \ = \ f (\ -0.4 + 0.4 + 0.3 \ )\ = \ f(0.3)  \ = \ 1$ $\rightarrow$ \textbf{ok}
+				\item $E \ = \ 0$
+			\end{enumerate}
+			
+		}
+	
+	\item Apply $X_3 = \begin{bmatrix}
+		\phantom{-}1\ \\ 	
+		-1\ \\ 	
+	\end{bmatrix}$, \  $T_3 = 1$
+
+		{	
+			\begin{enumerate}
+				\item $z_1 \ = \ f(\ 0.1  +  0 - 0.1 \ ) \ = \ f(0) \ = \ 1$
+				\item $z_2 \ = \ f(\ -0.3 - 0.2 - 0.4 \ ) \ = \ f(-0.9) \ = \ -1$
+				\item $y_3 \ = \ f (\ 0.4 - 0.4 + 0.3 \ )\ = \ f(0.3)  \ = \ 1$ $\rightarrow$ \textbf{ok}
+				\item $E \ = \ 0$
+			\end{enumerate}
+			
+		}
+	
+	
+	\item Apply $X_4 = \begin{bmatrix}
+		\phantom{-}1\ \\ 	
+		\phantom{-}1\ \\ 	
+	\end{bmatrix}$, \  $T_4 = -1$
+	
+	{	
+		\begin{enumerate}
+			\item $z_1 \ = \ f(\ 0.1  +  0 - 0.1 \ ) \ = \ f(0) \ = \ 1$
+			\item $z_2 \ = \ f(\ -0.3 + 0.2 - 0.4 \ ) \ = \ f(-0.5) \ = \ -1$
+			\item $y_4 \ = \ f (\ 0.4 - 0.4 + 0.3 \ )\ = \ f(0.3)  \ = \ 1$ $\rightarrow$ \text{not ok}
+			\item Let's train $z_1,\ b_1,\ b_3$ :
+			
+				\begin{itemize}[label=$\rightarrow$]
+					\item $w_{11_{new}}  \ = \ 0.1 + 0.1 \times 1 \times (-1-1) \ = \ -0.1$
+					\item $w_{21_{new}}  \ = \ 0 + 0.1 \times 1 \times (-1-1) \ = \ -0.2$
+					\item $b_{1_{new}} \ = \ -0.1 + 0.1 \times (-1-1) \ = \ -0.3$
+					\item $b_{3_{new}} \ = \ 0.3 + 0.1 \times (-1-1) \ = \ 0.1$
+				\end{itemize}
+			
+			\item Rest of the weights and bias remain same: 
+			\item $w_{12} = -0.3,\  w_{22} = 0.2$  
+			\item $b_2 = -0.4$ and $v_1 = 0.4, \ v_2 = 0.4$
+		\end{enumerate}
+		
+	}
+	
+	\item Next iteration starts from here.
+	
+	\item Again, Apply $X_1 = \begin{bmatrix}
+		-1\ \\ 	
+		-1\ \\ 	
+	\end{bmatrix}$, \  $T_1 = -1$
+	
+	{	
+		\begin{enumerate}
+			\item $z_1 \ = \ f(\ 0.1  +  0.2 - 0.3 \ ) \ = \ f(0) \ = \ 1$
+			\item $z_2 \ = \ f(\ 0.3 -  0.2 - 0.4 \ ) \ = \ f(-0.3) \ = \ -1$
+			\item $y_1 \ = \ f (\ 0.4 - 0.4 + 0.1 \ )\ = \ f(0.1)  \ = \ 1$ $\rightarrow$ \text{not ok}
+			\item Let's train $z_1,\ b_1,\ b_3$ :
+			
+			\begin{itemize}[label=$\rightarrow$]
+				\item $w_{11_{new}}  \ = \ -0.1 + 0.1 \times -1 \times (-1-1) \ = \ 0.1$
+				\item $w_{21_{new}}  \ = \ -0.2 + 0.1 \times -1 \times (-1-1) \ = \ 0$
+				\item $b_{1_{new}} \ = \ -0.3 + 0.1 \times (-1-1) \ = \ -0.5$
+				\item $b_{3_{new}} \ = \ 0.1 + 0.1 \times (-1-1) \ = \ -0.1$
+			\end{itemize}
+			
+			\item Rest of the weights and bias remain same: 
+			\item $w_{12} = -0.3,\  w_{22} = 0.2$  
+			\item $b_2 = -0.4$.
+			\item $v_1 = 0.4, \ v_2 = 0.4$
+			
+		\end{enumerate}
+		
+	}
+
+	\item Apply $X_2 = \begin{bmatrix}
+		-1\ \\ 	
+		\phantom{-}1\ \\ 	
+	\end{bmatrix}$, \  $T_2 = 1$
+	
+	{	
+		\begin{enumerate}
+			\item $z_1 \ = \ f(\ -0.1  +  0 - 0.5 \ ) \ = \ f(-0.6) \ = \ -1$
+			\item $z_2 \ = \ f(\ 0.3 + 0.2 - 0.4 \ ) \ = \ f(0.1) \ = \ 1$
+			\item $y_2 \ = \ f (\ -0.4 + 0.4 - 0.1 \ )\ = \ f(-0.1)  \ = \ -1$ $\rightarrow$ \text{not ok}
+			
+			\item Let's train $z_2,\ b_2,\ b_3$ :
+			
+			\begin{itemize}[label=$\rightarrow$]
+				\item $w_{12_{new}}  \ = \ -0.3 + 0.1 \times -1 \times (1-(-1)) \ = \ -0.5$
+				\item $w_{22_{new}}  \ = \ 0.2 + 0.1 \times 1 \times (1-(-1)) \ = \ 0.4$
+				\item $b_{2_{new}} \ = \ -0.4 + 0.1 \times (1-(-1)) \ = \ -0.2$
+				\item $b_{3_{new}} \ = \ -0.1 + 0.1 \times (1-(-1)) \ = \ 0.1$
+			\end{itemize}
+			
+			\item Rest of the weights and bias remain same: 
+			\item $w_{11} = 0.1,\  w_{21} = 0$  
+			\item $b_1 = -0.5$.
+			\item $v_1 = 0.4, \ v_2 = 0.4$
+		\end{enumerate}
+		
+	}
+	
+	
+	\item Apply $X_3 = \begin{bmatrix}
+		\phantom{-}1\ \\ 	
+		-1\ \\ 	
+	\end{bmatrix}$, \  $T_3 = 1$
+	
+	{	
+		\begin{enumerate}
+			\item $z_1 \ = \ f(\ 0.1  +  0 - 0.5\ ) \ = \ f(-0.4) \ = \ -1$
+			\item $z_2 \ = \ f(\ -0.5 - 0.4 - 0.2 \ ) \ = \ f(-1.1) \ = \ -1$
+			\item $y_3 \ = \ f (\ -0.4 - 0.4 + 0.1 \ )\ = \ f(-0.7)  \ = \ -1$ $\rightarrow$ \text{not ok}
+			
+				\item Let's train $z_1,\ b_1,\ b_3$ :
+			
+			\begin{itemize}[label=$\rightarrow$]
+				\item $w_{11_{new}}  \ = \ 0.1 + 0.1 \times 1 \times (1-(-1)) \ = \ 0.3$
+				\item $w_{21_{new}}  \ = \ 0 + 0.1 \times -1 \times (1-(-1)) \ = \ -0.2$
+				\item $b_{1_{new}} \ = \ -0.5 + 0.1 \times (1-(-1)) \ = \ -0.3$
+				\item $b_{3_{new}} \ = \ 0.1 + 0.1 \times (1-(-1)) \ = \ 0.3$
+			\end{itemize}
+			
+			\item Rest of the weights and bias remain same: 
+			\item $w_{12} = -0.5,\  w_{22} = 0.4$  
+			\item $b_2 = -0.2$.
+			\item $v_1 = 0.4, \ v_2 = 0.4$
+			
+		\end{enumerate}
+		
+	}
+
+	\item Apply $X_4 = \begin{bmatrix}
+		\phantom{-}1\ \\ 	
+		\phantom{-}1\ \\ 	
+	\end{bmatrix}$, \  $T_4 = -1$
+	
+	{	
+		\begin{enumerate}
+			\item $z_1 \ = \ f(\ 0.3 -  0.2 - 0.3 \ ) \ = \ f(-0.2) \ = \ -1$
+			\item $z_2 \ = \ f(\ -0.5 + 0.4 - 0.2 \ ) \ = \ f(-0.3) \ = \ -1$
+			\item $y_4 \ = \ f (\ -0.4 - 0.4 + 0.3 \ )\ = \ f(-0.5)  \ = \ -1$ $\rightarrow$ \textbf{ok}
+			
+		\end{enumerate}
+		
+	}
+
+	\item Next iteration starts here:
+	
+	\item $w_{11} = 0.3,\ w_{21} = -0.2,\ b_1 = -0.3$
+	\item $w_{12} = -0.5,\ w_{22} = 0.4,\ b_2 = -0.2,\  b_3 = 0.3 $
+	
+	\item Again, Apply $X_1 = \begin{bmatrix}
+		-1\ \\ 	
+		-1\ \\ 	
+	\end{bmatrix}$, \  $T_1 = -1$
+	
+	{	
+		\begin{enumerate}
+			\item $z_1 \ = \ f(\ -0.3  +  0.2 - 0.3 \ ) \ = \ f(-0.4) \ = \ -1$
+			\item $z_2 \ = \ f(\ 0.5 -  0.4 - 0.2 \ ) \ = \ f(-0.1) \ = \ -1$
+			\item $y_1 \ = \ f (\ -0.4 - 0.4 + 0.3 \ )\ = \ f(-0.5)  \ = \ -1$ $\rightarrow$ \textbf{ok}
+		\end{enumerate}
+		
+	}
+
+	
+	\item Apply $X_2 = \begin{bmatrix}
+		-1\ \\ 	
+		\phantom{-}1\ \\ 	
+	\end{bmatrix}$, \  $T_2 = 1$
+	
+	{	
+		\begin{enumerate}
+			\item $z_1 \ = \ f(\ -0.3  -  0.2 - 0.3 \ ) \ = \ f(-0.8) \ = \ -1$
+			\item $z_2 \ = \ f(\ 0.5 + 0.4 - 0.2 \ ) \ = \ f(0.7) \ = \ 1$
+			\item $y_2 \ = \ f (\ -0.4 + 0.4 + 0.3 \ )\ = \ f(0.3)  \ = \ 1$ $\rightarrow$ \textbf{ok}
+		\end{enumerate}
+		
+	}
+
+	\item Apply $X_3 = \begin{bmatrix}
+		\phantom{-}1\ \\ 	
+		-1\ \\ 	
+	\end{bmatrix}$, \  $T_3 = 1$
+	
+	{	
+		\begin{enumerate}
+			\item $z_1 \ = \ f(\ 0.3  +  0.2 - 0.3\ ) \ = \ f(0.2) \ = \ 1$
+			\item $z_2 \ = \ f(\ -0.5 - 0.4 - 0.2 \ ) \ = \ f(-1.1) \ = \ -1$
+			\item $y_3 \ = \ f (\ 0.4 - 0.4 + 0.3 \ )\ = \ f(0.3)  \ = \ 1$ $\rightarrow$ \textbf{ok}
+
+		\end{enumerate}
+		
+	}
+
+	\item Apply $X_4 = \begin{bmatrix}
+		\phantom{-}1\ \\ 	
+		\phantom{-}1\ \\ 	
+	\end{bmatrix}$, \  $T_4 = -1$
+	
+	{	
+		\begin{enumerate}
+			\item $z_1 \ = \ f(\ 0.3 -  0.2 - 0.3 \ ) \ = \ f(-0.2) \ = \ -1$
+			\item $z_2 \ = \ f(\ -0.5 + 0.4 - 0.2 \ ) \ = \ f(-0.3) \ = \ -1$
+			\item $y_4 \ = \ f (\ -0.4 - 0.4 + 0.3 \ )\ = \ f(-0.5)  \ = \ -1$ $\rightarrow$ \textbf{ok}
+			
+		\end{enumerate}
+		
+	}
+
+	
+	
+\end{itemize}
+Therefore the network is set for 2-input XOR gate
+\end{document}1

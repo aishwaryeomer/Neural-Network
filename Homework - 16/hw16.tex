@@ -1,0 +1,184 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[top=10mm, bottom=45mm, left=10mm, right=10mm]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{answers}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathrsfs}
+\usepackage{algorithmic}
+\usepackage{stmaryrd}
+\usepackage[ruled,linesnumbered,vlined]{algorithm2e}
+\usepackage{tikz}
+ \usepackage{fancyvrb}
+\usetikzlibrary{automata, positioning}
+\usepackage{minted}
+
+
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines, 
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{\textbf{EE 456}}   
+\newcommand\name{Aishwarye Omer}     
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\name\\\course{}}
+\chead{\textbf{\Large Homework - 16}}
+\rhead{\today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\newlength\myindent
+\setlength\myindent{2em}
+\newcommand\bindent{%
+  \begingroup
+  \setlength{\itemindent}{\myindent}
+  \addtolength{\algorithmicindent}{\myindent}
+}
+\newcommand\eindent{\endgroup}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+\newenvironment{solution}[1][Solution]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+
+\begin{document}
+
+\textbf{Question: ARTMAP - Continue the ARTMAP exercise shown in class through the first cycle.}
+
+\BlankLine
+\BlankLine
+
+\textbf{Solution:} 
+\BlankLine
+From the class, following are the values of the $b$ matrix and $t$ matrix: \BlankLine
+$ b \ = \ \begin{bmatrix}
+  2/3 && 0 && 0.2 \ \\
+  2/3 && 0 && 0.2 \ \\
+  0 && 0 && 0.2 \ \\
+  0 && 1 && 0.2 \
+\end{bmatrix}$, \ $ t  \ = \ \begin{bmatrix} 1 && 1 && 0 && 0 \\ 0 && 0 && 0 && 1 \\ 1 && 1 && 1 && 1 \ \end{bmatrix}$ 
+\BlankLine
+$\bullet$ Currently $Y_1$ recognizes $S_1$ and $Y_2$ recognizes $S_2$.
+\BlankLine
+$\bullet$ Vigilance Parameter i.e. $\rho \ = \ 0.4$
+\BlankLine
+\begin{enumerate}
+	\item Present $S_3 \ = \ \begin{bmatrix}
+		\ 1 \  \\ \ 0 \ \\  \ 0 \  \\  \ 0 \   
+	\end{bmatrix}$, $|| S_3 || \ = \ 1 $
+
+	\begin{itemize}
+		\item $Y_1 \ = \ (1 \times 2/3) \ + \ (0 \times 2/3) \ + \ (0 \times 0) \ + \ (0 \times 0)  \ = \ 2/3 \ = \ 0.66$
+		\item $Y_2 \ = \ (1 \times 0) \ + \ (0 \times 0) \ + \ (0 \times 0) \ + \ (0 \times 1)  \ = \ 0$
+		\item $Y_3 \ = \ (1 \times 0.2) \ + \ (0 \times 0.2) \ + \ (0 \times 0.2) \ + \ (0 \times 0.2)  \ = \ 0.2$
+		\item Therefore 0.66 $>$ $\rho$, $Y_1$ will recognize $S_3$
+	\end{itemize}
+
+	\item Train $b$ and $t$
+	
+	\begin{itemize}
+		\item $b_{1_{new}} \ = \ $  $\frac{2 \times x_i}{1 + || x_i ||}$
+		
+		\item After updating first column of $b$ matrix, following is the $b$ matrix
+		
+		\item $ b \ = \ \begin{bmatrix}
+			1 && 0 && 0.2 \ \\
+			0 && 0 && 0.2 \ \\
+			0 && 0 && 0.2 \ \\
+			0 && 1 && 0.2 \
+		\end{bmatrix}$
+	
+		\item After updating first row of $t$ matrix, following is the $t$ matrix
+		
+		\item $ t  \ = \ \begin{bmatrix} 1 && 0 && 0 && 0 \\ 0 && 0 && 0 && 1 \\ 1 && 1 && 1 && 1 \ \end{bmatrix}$ 
+		
+	\end{itemize}
+
+	\item Present $S_4 \ = \ \begin{bmatrix}
+		\ 0 \  \\ \ 0 \ \\  \ 1 \  \\  \ 1 \   
+	\end{bmatrix}$, $|| S_4 || \ = \ 2 $
+
+	\begin{itemize}
+		\item $Y_1 \ = \ (0 \times 1) \ + \ (0 \times 0) \ + \ (1 \times 0) \ + \ (1 \times 0)  \ = \ 0$
+		\item $Y_2 \ = \ (0 \times 0) \ + \ (0 \times 0) \ + \ (1 \times 0) \ + \ (1 \times 1)  \ = \ 1$
+		\item $Y_3 \ = \ (0 \times 0.2) \ + \ (0 \times 0.2) \ + \ (1 \times 0.2) \ + \ (1 \times 0.2)  \ = \ 0.4$
+		\item Since $Y_2$ is stronger than $Y_3$ and 1 $>$ $\rho$, therefore $Y_2$ recognizes $S_4$
+	\end{itemize}
+	
+	\item Train $b$ and $t$
+	
+	\begin{itemize}
+		\item $b_{2_{new}} \ = \ $  $\frac{2 \times x_i}{1 + || x_i ||}$
+		
+		\item After updating second column of $b$ matrix, following is the $b$ matrix
+		
+		\item $ b \ = \ \begin{bmatrix}
+			1 && 0 && 0.2 \ \\
+			0 && 0 && 0.2 \ \\
+			0 && 2/3 && 0.2 \ \\
+			0 && 2/3 && 0.2 \
+		\end{bmatrix}$
+		
+		\item After updating first row of $t$ matrix, following is the $t$ matrix
+		
+		\item $ t  \ = \ \begin{bmatrix} 1 && 0 && 0 && 0 \\ 0 && 0 && 1 && 1 \\ 1 && 1 && 1 && 1 \ \end{bmatrix}$ 
+		
+	\end{itemize}
+	
+\end{enumerate}
+
+
+\end{document}

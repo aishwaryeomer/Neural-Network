@@ -1,0 +1,197 @@
+\documentclass[12pt]{article}
+
+\usepackage{fullpage}
+\usepackage[top=20mm, bottom=40mm, left=10mm, right=10mm]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{answers}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{mathrsfs}
+\usepackage{algorithmic}
+\usepackage{stmaryrd}
+\usepackage[ruled,linesnumbered,vlined]{algorithm2e}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning}
+
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines, 
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+\newcommand\course{\textbf{EE 456}}   
+\newcommand\name{Aishwarye Omer}     
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\name\\\course{}}
+\chead{\textbf{\Large Homework - 02}}
+\rhead{\today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\newlength\myindent
+\setlength\myindent{2em}
+\newcommand\bindent{%
+  \begingroup
+  \setlength{\itemindent}{\myindent}
+  \addtolength{\algorithmicindent}{\myindent}
+}
+\newcommand\eindent{\endgroup}
+
+\newenvironment{solution}[1][Solution]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+
+\begin{document}
+
+\textbf{Question: } \text{Design an Auto - Associator to store the pattern
+	
+	$\begin{bmatrix}
+		\phantom{-}1\quad  \\
+		\phantom{-}1\quad \\
+		\phantom{-}1\quad  \\
+		 -1\quad
+	\end{bmatrix}$
+, the synaptic weight $\overline{w}$ is given as }\newline
+
+	$
+	\overline{w} =
+	\begin{bmatrix}
+		\phantom{-}1\quad  \\
+		\phantom{-}1\quad \\
+		\phantom{-}1\quad  \\
+		 -1\quad
+	\end{bmatrix}$
+	$\times$
+	$\begin{bmatrix}
+			1 & 1 & 1 & -1
+	\end{bmatrix}$
+	$ = $
+	$\begin{bmatrix}
+		\phantom{-}1 & 	\phantom{-}1 & 	\phantom{-}1 & -1 \quad\\
+		\phantom{-}1 & 	\phantom{-}1 &	\phantom{-} 1 & -1 \quad \\
+		\phantom{-}	1 & \phantom{-}1 &	\phantom{-} 1 & -1 \quad\\
+		-1 & -1 & -1 & 	\phantom{-}1 \quad
+	\end{bmatrix}$\newline\newline
+
+\textbf{Solution :}
+\BlankLine
+\begin{enumerate}[label=\textbf{\alph* .}]
+	
+	\item We first test the network with $\begin{bmatrix}
+		\phantom{-}1\quad  \\
+		\phantom{-}1\quad \\
+		\phantom{-}1\quad  \\
+		-1\quad
+	\end{bmatrix}$ to check whether we obtain 	$\begin{bmatrix}
+		1 & 1 & 1 & -1
+	\end{bmatrix}$
+	\BlankLine
+	$\bullet$ We know that $\overline{w} = \displaystyle \sum_{i = 1 }^{n} x_i \times y_{i}^{T}$
+	\BlankLine
+	$\bullet$ Therefore we test for the above pattern as follows:
+	\BlankLine
+	\BlankLine
+	
+	\begin{itemize}[label=$\rightarrow$]
+		
+		\item \textbf{Test} $\begin{bmatrix}
+			1 & 1 & 1 & -1
+		\end{bmatrix}$ $,$ \quad\qquad $\begin{bmatrix}
+			\phantom{-}1\quad  \\
+			\phantom{-}1\quad \\
+			\phantom{-}1\quad  \\
+			-1\quad
+		\end{bmatrix}$
+		$\times$
+		$\begin{bmatrix}
+			\phantom{-}1 & 	\phantom{-}1 & 	\phantom{-}1 & -1 \quad\\
+			\phantom{-}1 & 	\phantom{-}1 &	\phantom{-} 1 & -1 \quad \\
+			\phantom{-}	1 & \phantom{-}1 &	\phantom{-} 1 & -1 \quad\\
+			-1 & -1 & -1 & 	\phantom{-}1 \quad
+		\end{bmatrix}$ $=$ $\begin{bmatrix}
+			4 & 4 & 4 & -4
+		\end{bmatrix}$ 
+		
+		\item Dividing the enitre row matrix by 4 we get the answer as $\begin{bmatrix}
+			1 & 1 & 1 & -1\\
+		\end{bmatrix}$ 
+	\end{itemize}
+	
+	$\bullet$ Hence, the network remembers the pattern.
+	\BlankLine
+	\BlankLine
+	
+	\item We now test the network with $\begin{bmatrix}
+		-1\quad  \\
+		\phantom{-}1\quad \\
+		\phantom{-}1\quad  \\
+		-1\quad
+	\end{bmatrix}$ to check whether we obtain 	$\begin{bmatrix}
+		1 & 1 & 1 & -1
+	\end{bmatrix}$
+	\BlankLine
+	$\bullet$ We know that $\overline{w} = \displaystyle \sum_{i = 1 }^{n} x_i \times y_{i}^{T}$
+	\BlankLine
+	$\bullet$ Therefore we test for the above pattern as follows:
+	\BlankLine
+	\BlankLine 
+	
+		\begin{itemize}[label=$\rightarrow$]
+		
+		\item \textbf{Test} $\begin{bmatrix}
+			1 & 1 & 1 & -1
+		\end{bmatrix}$ $,$ \quad\qquad $\begin{bmatrix}
+			-1\quad  \\
+			\phantom{-}1\quad \\
+			\phantom{-}1\quad  \\
+			-1\quad
+		\end{bmatrix}$
+		$\times$
+		$\begin{bmatrix}
+			\phantom{-}1 & 	\phantom{-}1 & 	\phantom{-}1 & -1 \quad\\
+			\phantom{-}1 & 	\phantom{-}1 &	\phantom{-} 1 & -1 \quad \\
+			\phantom{-}	1 & \phantom{-}1 &	\phantom{-} 1 & -1 \quad\\
+			-1 & -1 & -1 & 	\phantom{-}1 \quad
+		\end{bmatrix}$ $=$ $\begin{bmatrix}
+			2 & 2 & 2 & -2
+		\end{bmatrix}$ 
+		
+		\item Dividing the enitre row matrix by 2 we get the answer as $\begin{bmatrix}
+			1 & 1 & 1 & -1\\
+		\end{bmatrix}$ 
+	\end{itemize}
+	
+	$\bullet$ Hence, the network remembers the pattern.
+	\BlankLine
+	
+	
+	
+\end{enumerate}
+
+
+
+\end{document}

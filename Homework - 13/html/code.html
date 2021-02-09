@@ -1,0 +1,236 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>code</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-03"><meta name="DC.source" content="code.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">z1 = 0.2;
+z2 = 0.2;
+z3 = 0.2;
+z4 = 0.2;
+z5 = 0.2;
+z6 = 0.2;
+
+z7 = 0.3;
+z8 = 0.3;
+z9 = 0.3;
+z10 = 0.3;
+z11 = 0.3;
+z12 = 0.3;
+
+c1 = 0.7;
+c2 = -0.3;
+
+z1_new = round(0.7 * (0.2 + 0.2 + 0.2) - 0.3 * (0.2 + 0.2), 2);
+
+z2_new = round(0.7 * (0.2 + 0.2 + 0.2 + 0.2) - 0.3 * (0.2 + 0.2), 2);
+
+z3_new = round(0.7 * (0.2 + 0.2 + 0.2 + 0.2 + 0.2) - 0.3 * (0.2 + 0.3), 2);
+
+z4_new = round(0.7 * (0.2 + 0.2 + 0.2 + 0.2 + 0.2) - 0.3 * (0.2 + 0.3 + 0.3) , 2);
+
+z5_new = round(0.7 * (0.2 + 0.2 + 0.2 + 0.2 + 0.3) - 0.3 * (0.2 + 0.2 + 0.3 + 0.3), 2);
+
+z6_new = round(0.7 * (0.2 + 0.2 + 0.2 + 0.3 + 0.3) - 0.3 * (0.2 + 0.2 + 0.3 + 0.3), 2);
+
+z7_new = round(0.7 * (0.2 + 0.2 + 0.3 + 0.3 + 0.3) - 0.3 * (0.2 + 0.2 + 0.3 + 0.3), 2);
+
+z8_new = round(0.7 * (0.2 + 0.3 + 0.3 + 0.3 + 0.3) - 0.3 * (0.2 + 0.2 + 0.3 + 0.3), 2);
+
+z9_new = round(0.7 * (0.3 + 0.3 + 0.3 + 0.3 + 0.3) - 0.3 * (0.2 + 0.2 + 0.3 + 0.2), 2);
+
+z10_new = round(0.7 * (0.3 + 0.3 + 0.3 + 0.3 + 0.3) - 0.3 * (0.2 + 0.3 + 0.2 + 0.2), 2);
+
+z11_new = round(0.7 * (0.3 + 0.3 + 0.3 + 0.3 + 0.2) - 0.3 * (0.3 + 0.3 + 0.2 + 0.2), 2);
+
+z12_new = round(0.7 * (0.3 + 0.3 + 0.3 + 0.2 + 0.2) - 0.3 * (0.3 + 0.3 + 0.2 + 0.2), 2);
+
+
+fprintf(<span class="string">'z1 new = %f\t\n'</span>, z1_new );
+fprintf(<span class="string">'z2 new = %f\t\n'</span>, z2_new );
+fprintf(<span class="string">'z3 new = %f\t\n'</span>, z3_new );
+fprintf(<span class="string">'z4 new = %f\t\n'</span>, z4_new );
+fprintf(<span class="string">'z5 new = %f\t\n'</span>, z5_new );
+fprintf(<span class="string">'z6 new = %f\t\n'</span>, z6_new );
+fprintf(<span class="string">'z7 new = %f\t\n'</span>, z7_new );
+fprintf(<span class="string">'z8 new = %f\t\n'</span>, z8_new );
+fprintf(<span class="string">'z9 new = %f\t\n'</span>, z9_new );
+fprintf(<span class="string">'z10 new = %f\t\n'</span>, z10_new );
+fprintf(<span class="string">'z11 new = %f\t\n'</span>, z11_new );
+fprintf(<span class="string">'z12 new = %f\t\n\n\n'</span>, z12_new );
+
+Z_old = [z1 z2 z3 z4 z5 z6 z7 z8 z9 z10 z11 z12];
+
+high_old = max(Z_old);
+low_old = min(Z_old);
+amplitude_old = high_old - low_old;
+
+Z_new = [z1_new z2_new z3_new z4_new z5_new z6_new z7_new z8_new z9_new z10_new z11_new z12_new];
+
+high_new = max(Z_new);
+low_new = min(Z_new);
+amplitude_new = high_new - low_new;
+
+fprintf(<span class="string">'Amplitude old = %f\t\n\n'</span>, amplitude_old );
+fprintf(<span class="string">'Amplitude new = %f\t\n'</span>, amplitude_new );
+
+<span class="comment">%plot(Z_old,'Linewidth',4);</span>
+<span class="comment">%plot(Z_new,'Linewidth',4);</span>
+</pre><pre class="codeoutput">z1 new = 0.300000	
+z2 new = 0.440000	
+z3 new = 0.550000	
+z4 new = 0.460000	
+z5 new = 0.470000	
+z6 new = 0.540000	
+z7 new = 0.610000	
+z8 new = 0.680000	
+z9 new = 0.780000	
+z10 new = 0.780000	
+z11 new = 0.680000	
+z12 new = 0.610000	
+
+
+Amplitude old = 0.100000	
+
+Amplitude new = 0.480000	
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+z1 = 0.2;
+z2 = 0.2;
+z3 = 0.2;
+z4 = 0.2;
+z5 = 0.2;
+z6 = 0.2;
+
+z7 = 0.3;
+z8 = 0.3;
+z9 = 0.3;
+z10 = 0.3;
+z11 = 0.3;
+z12 = 0.3;
+
+c1 = 0.7;
+c2 = -0.3;
+
+z1_new = round(0.7 * (0.2 + 0.2 + 0.2) - 0.3 * (0.2 + 0.2), 2);
+
+z2_new = round(0.7 * (0.2 + 0.2 + 0.2 + 0.2) - 0.3 * (0.2 + 0.2), 2);
+
+z3_new = round(0.7 * (0.2 + 0.2 + 0.2 + 0.2 + 0.2) - 0.3 * (0.2 + 0.3), 2);
+
+z4_new = round(0.7 * (0.2 + 0.2 + 0.2 + 0.2 + 0.2) - 0.3 * (0.2 + 0.3 + 0.3) , 2);
+
+z5_new = round(0.7 * (0.2 + 0.2 + 0.2 + 0.2 + 0.3) - 0.3 * (0.2 + 0.2 + 0.3 + 0.3), 2);
+
+z6_new = round(0.7 * (0.2 + 0.2 + 0.2 + 0.3 + 0.3) - 0.3 * (0.2 + 0.2 + 0.3 + 0.3), 2);
+
+z7_new = round(0.7 * (0.2 + 0.2 + 0.3 + 0.3 + 0.3) - 0.3 * (0.2 + 0.2 + 0.3 + 0.3), 2);
+
+z8_new = round(0.7 * (0.2 + 0.3 + 0.3 + 0.3 + 0.3) - 0.3 * (0.2 + 0.2 + 0.3 + 0.3), 2);
+
+z9_new = round(0.7 * (0.3 + 0.3 + 0.3 + 0.3 + 0.3) - 0.3 * (0.2 + 0.2 + 0.3 + 0.2), 2);
+
+z10_new = round(0.7 * (0.3 + 0.3 + 0.3 + 0.3 + 0.3) - 0.3 * (0.2 + 0.3 + 0.2 + 0.2), 2);
+
+z11_new = round(0.7 * (0.3 + 0.3 + 0.3 + 0.3 + 0.2) - 0.3 * (0.3 + 0.3 + 0.2 + 0.2), 2);
+
+z12_new = round(0.7 * (0.3 + 0.3 + 0.3 + 0.2 + 0.2) - 0.3 * (0.3 + 0.3 + 0.2 + 0.2), 2);
+
+
+fprintf('z1 new = %f\t\n', z1_new );
+fprintf('z2 new = %f\t\n', z2_new );
+fprintf('z3 new = %f\t\n', z3_new );
+fprintf('z4 new = %f\t\n', z4_new );
+fprintf('z5 new = %f\t\n', z5_new );
+fprintf('z6 new = %f\t\n', z6_new );
+fprintf('z7 new = %f\t\n', z7_new );
+fprintf('z8 new = %f\t\n', z8_new );
+fprintf('z9 new = %f\t\n', z9_new );
+fprintf('z10 new = %f\t\n', z10_new );
+fprintf('z11 new = %f\t\n', z11_new );
+fprintf('z12 new = %f\t\n\n\n', z12_new );
+
+Z_old = [z1 z2 z3 z4 z5 z6 z7 z8 z9 z10 z11 z12];
+
+high_old = max(Z_old);
+low_old = min(Z_old);
+amplitude_old = high_old - low_old;
+
+Z_new = [z1_new z2_new z3_new z4_new z5_new z6_new z7_new z8_new z9_new z10_new z11_new z12_new];
+
+high_new = max(Z_new);
+low_new = min(Z_new);
+amplitude_new = high_new - low_new;
+
+fprintf('Amplitude old = %f\t\n\n', amplitude_old );
+fprintf('Amplitude new = %f\t\n', amplitude_new );
+
+%plot(Z_old,'Linewidth',4);
+%plot(Z_new,'Linewidth',4);
+
+
+##### SOURCE END #####
+--></body></html>
